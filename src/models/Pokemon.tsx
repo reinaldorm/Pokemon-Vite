@@ -1,27 +1,27 @@
-interface Stat {
+type Stat = {
   base_state: number;
   effort: number;
   stat: {
     name: string;
     url: string;
   };
-}
+};
 
-interface Type {
+type Type = {
   slot: number;
   type: {
     name: string;
     url: string;
   };
-}
+};
 
-interface Sprites {
+type Sprites = {
   other: {
     'official-artwork': {
       front_default: string;
     };
   };
-}
+};
 
 export default class Pokemon {
   name: string;
@@ -33,7 +33,16 @@ export default class Pokemon {
   is_default: boolean;
   sprites: Sprites;
   variant: string;
-  constructor(name: string, id: number, height: number, weight: number, types: Type[], stats: Stat[], is_default: boolean, sprites: Sprites) {
+  constructor(
+    name: string,
+    id: number,
+    height: number,
+    weight: number,
+    types: Type[],
+    stats: Stat[],
+    is_default: boolean,
+    sprites: Sprites
+  ) {
     this.name = name;
     this.id = id;
     this.height = height / 10;

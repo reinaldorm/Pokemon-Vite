@@ -4,21 +4,26 @@ import Pokemon from './components/Pokemon';
 import Store from './context/context';
 
 function App() {
-  const [counter, setCounter] = React.useState(0);
-  const { pokemons } = React.useContext(Store);
+  const { pokemons, getPokemonsByQuantity } = React.useContext(Store);
 
   React.useEffect(() => {
     console.log(pokemons);
   }, [pokemons]);
 
+  function handleGetPokemon() {
+    if (getPokemonsByQuantity) getPokemonsByQuantity(18);
+  }
+
   return (
-    <div className="App">
-      {pokemons.map((pokemon) => (
-        <Pokemon
-          key={pokemon.name}
-          pokemon={pokemon}
-        />
-      ))}
+    <div className='App'>
+      {pokemons &&
+        pokemons.map((pokemon) => (
+          <Pokemon
+            key={pokemon.name}
+            pokemon={pokemon}
+          />
+        ))}
+      <button onClick={handleGetPokemon}>Show More</button>
     </div>
   );
 }

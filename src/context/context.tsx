@@ -1,29 +1,29 @@
 import React from 'react';
 
-interface Stat {
+type Stat = {
   base_state: number;
   effort: number;
   stat: {
     name: string;
     url: string;
   };
-}
+};
 
-interface Type {
+type Type = {
   slot: number;
   type: {
     name: string;
     url: string;
   };
-}
+};
 
-interface Sprites {
+type Sprites = {
   other: {
     'official-artwork': {
       front_default: string;
     };
   };
-}
+};
 
 interface Pokemon {
   name: string;
@@ -37,12 +37,11 @@ interface Pokemon {
 }
 
 interface StoreValueProps {
-  pokemons: Pokemon[];
+  pokemons?: Pokemon[];
+  getPokemonsByQuantity?: (quantity: number) => void;
 }
 
-const StoreInitialValue: StoreValueProps = {
-  pokemons: [],
-};
+const StoreInitialValue: StoreValueProps = {};
 
 const Store = React.createContext(StoreInitialValue);
 
