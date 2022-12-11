@@ -36,7 +36,7 @@ interface Pokemon {
   sprites: Sprites;
 }
 
-const Counter = ({ pokemon }: { pokemon: Pokemon }) => {
+const Pokemon = ({ pokemon }: { pokemon: Pokemon }) => {
   return (
     <div>
       <h1 style={{ textTransform: 'capitalize' }}>{pokemon.name}</h1>
@@ -50,4 +50,4 @@ const Counter = ({ pokemon }: { pokemon: Pokemon }) => {
   );
 };
 
-export default Counter;
+export default Pokemon;

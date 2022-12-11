@@ -42,6 +42,10 @@ interface Pokemon {
   sprites: Sprites;
 }
 
+interface TypeEndpoint {
+  pokemon: Array<{ pokemon: Pokemon }>;
+}
+
 const apiURL = 'https://pokeapi.co/api/v2';
 
 const StoreProvider = ({ children }: StoreProps) => {
@@ -51,7 +55,7 @@ const StoreProvider = ({ children }: StoreProps) => {
     return pokemons;
   });
 
-  async function getApiData(query: string, endpoint: 'pokemon' | 'type'): Promise<any> {
+  async function getApiData(query: string, endpoint: 'pokemon' | 'type'): Promise<Pokemon> {
     const APIresponse = await fetch(apiURL + '/' + endpoint + '/' + query);
     const APIData = await APIresponse.json();
 
@@ -67,23 +71,40 @@ const StoreProvider = ({ children }: StoreProps) => {
     return pokemon;
   }
 
-  async function getPokemonsByQuantity(quantity: number = 18) {
-    const pokemonsList = [...pokemons];
-
+  async function getPokemonsByQuantity(quantity: number = 18, endpoint: 'pokemon' | 'type' = 'pokemon', id?: string) {
     for (let i = pokemons.length + 1; i <= pokemons.length + quantity; i += 1) {
-      const pokemon = await mountPokemonByApiData(i.toString(), 'pokemon');
+      let pokemon: Pokemon;
 
-      pokemonsList.push(pokemon);
+      pokemon = await mountPokemonByApiData(id || i.toString(), endpoint);
+
+      setPokemons((pokemons) => [...pokemons, pokemon]);
     }
+  }
 
-    setPokemons(pokemonsList);
+  async function getPokemonByNameOrId(query: string) {
+    setPokemons([]);
+
+    const pokemon = await mountPokemonByApiData(query, 'pokemon');
+
+    setPokemons((pokemons) => [...pokemons, pokemon]);
+  }
+
+  async function getPokemonsByType(type: string) {
+    setPokemons([]);
+
+    const APIresponse = await fetch(apiURL + '/type/' + type);
+    const { pokemon: APIpokemon }: TypeEndpoint = await APIresponse.json();
+
+    console.log(APIpokemon.length);
+
+    APIpokemon.forEach(({ pokemon }) => getPokemonsByQuantity(1, 'pokemon', pokemon.name));
   }
 
   React.useEffect(() => {
-    getPokemonsByQuantity();
+    getPokemonsByType('fire');
   }, []);
 
-  return <Store.Provider value={{ pokemons, getPokemonsByQuantity }}>{children}</Store.Provider>;
+  return <Store.Provider value={{ pokemons, getPokemonsByQuantity, getPokemonByNameOrId, getPokemonsByType }}>{children}</Store.Provider>;
 };
 
 export default StoreProvider;

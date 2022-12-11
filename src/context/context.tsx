@@ -39,6 +39,8 @@ interface Pokemon {
 interface StoreValueProps {
   pokemons?: Pokemon[];
   getPokemonsByQuantity?: (quantity: number) => void;
+  getPokemonsByType?: (type: string) => void;
+  getPokemonByNameOrId?: (query: string) => void;
 }
 
 const StoreInitialValue: StoreValueProps = {};
