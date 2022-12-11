@@ -73,9 +73,7 @@ const StoreProvider = ({ children }: StoreProps) => {
 
   async function getPokemonsByQuantity(quantity: number = 18, endpoint: 'pokemon' | 'type' = 'pokemon', id?: string) {
     for (let i = pokemons.length + 1; i <= pokemons.length + quantity; i += 1) {
-      let pokemon: Pokemon;
-
-      pokemon = await mountPokemonByApiData(id || i.toString(), endpoint);
+      const pokemon = await mountPokemonByApiData(id || i.toString(), endpoint);
 
       setPokemons((pokemons) => [...pokemons, pokemon]);
     }
