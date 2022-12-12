@@ -1,29 +1,29 @@
 import React from 'react';
 
-interface Stat {
+type Stat = {
   base_state: number;
   effort: number;
   stat: {
     name: string;
     url: string;
   };
-}
+};
 
-interface Type {
+type Type = {
   slot: number;
   type: {
     name: string;
     url: string;
   };
-}
+};
 
-interface Sprites {
+type Sprites = {
   other: {
-    'official-artwork': {
+    dream_world: {
       front_default: string;
     };
   };
-}
+};
 
 interface Pokemon {
   name: string;
@@ -44,7 +44,7 @@ const Pokemon = ({ pokemon }: { pokemon: Pokemon }) => {
       <h5 style={{ textTransform: 'capitalize' }}>{pokemon.types[0].type.name}</h5>
       <img
         style={{ maxWidth: '10rem' }}
-        src={pokemon.sprites.other['official-artwork'].front_default}
+        src={pokemon.sprites.other.dream_world.front_default}
       />
     </div>
   );

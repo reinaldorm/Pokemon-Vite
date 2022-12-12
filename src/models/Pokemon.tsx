@@ -17,7 +17,7 @@ type Type = {
 
 type Sprites = {
   other: {
-    'official-artwork': {
+    dream_world: {
       front_default: string;
     };
   };

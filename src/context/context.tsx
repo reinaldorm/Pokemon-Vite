@@ -19,7 +19,7 @@ type Type = {
 
 type Sprites = {
   other: {
-    'official-artwork': {
+    dream_world: {
       front_default: string;
     };
   };
@@ -38,7 +38,7 @@ interface Pokemon {
 
 interface StoreValueProps {
   pokemons?: Pokemon[];
-  getPokemonsByQuantity?: (quantity: number) => void;
+  getPokemonsByQuantity?: (quantity?: number) => void;
   getPokemonsByType?: (type: string) => void;
   getPokemonByNameOrId?: (query: string) => void;
 }

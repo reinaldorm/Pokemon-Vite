@@ -6,7 +6,7 @@ function App() {
   const { pokemons, getPokemonsByQuantity } = React.useContext(Store);
 
   function handleGetPokemon() {
-    if (getPokemonsByQuantity) getPokemonsByQuantity(18);
+    if (getPokemonsByQuantity) getPokemonsByQuantity();
   }
 
   return (

@@ -25,7 +25,7 @@ type Type = {
 
 type Sprites = {
   other: {
-    'official-artwork': {
+    dream_world: {
       front_default: string;
     };
   };
@@ -73,7 +73,9 @@ const StoreProvider = ({ children }: StoreProps) => {
 
   async function getPokemonsByQuantity(quantity: number = 18, endpoint: 'pokemon' | 'type' = 'pokemon', id?: string) {
     for (let i = pokemons.length + 1; i <= pokemons.length + quantity; i += 1) {
-      const pokemon = await mountPokemonByApiData(id || i.toString(), endpoint);
+      const query = id || i.toString();
+
+      const pokemon = await mountPokemonByApiData(query, endpoint);
 
       setPokemons((pokemons) => [...pokemons, pokemon]);
     }
@@ -93,13 +95,11 @@ const StoreProvider = ({ children }: StoreProps) => {
     const APIresponse = await fetch(apiURL + '/type/' + type);
     const { pokemon: APIpokemon }: TypeEndpoint = await APIresponse.json();
 
-    console.log(APIpokemon.length);
-
     APIpokemon.forEach(({ pokemon }) => getPokemonsByQuantity(1, 'pokemon', pokemon.name));
   }
 
   React.useEffect(() => {
-    getPokemonsByType('fire');
+    getPokemonsByQuantity();
   }, []);
 
   return <Store.Provider value={{ pokemons, getPokemonsByQuantity, getPokemonByNameOrId, getPokemonsByType }}>{children}</Store.Provider>;
