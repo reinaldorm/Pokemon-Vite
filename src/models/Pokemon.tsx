@@ -1,27 +1,4 @@
-type Stat = {
-  base_state: number;
-  effort: number;
-  stat: {
-    name: string;
-    url: string;
-  };
-};
-
-type Type = {
-  slot: number;
-  type: {
-    name: string;
-    url: string;
-  };
-};
-
-type Sprites = {
-  other: {
-    dream_world: {
-      front_default: string;
-    };
-  };
-};
+import { Stat, Type, Sprites } from '../types';
 
 export default class Pokemon {
   name: string;
@@ -33,16 +10,7 @@ export default class Pokemon {
   is_default: boolean;
   sprites: Sprites;
   variant: string;
-  constructor(
-    name: string,
-    id: number,
-    height: number,
-    weight: number,
-    types: Type[],
-    stats: Stat[],
-    is_default: boolean,
-    sprites: Sprites
-  ) {
+  constructor(name: string, id: number, height: number, weight: number, types: Type[], stats: Stat[], is_default: boolean, sprites: Sprites) {
     this.name = name;
     this.id = id;
     this.height = height / 10;

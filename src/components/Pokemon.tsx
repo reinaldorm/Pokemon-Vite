@@ -1,40 +1,6 @@
 import React from 'react';
 
-type Stat = {
-  base_state: number;
-  effort: number;
-  stat: {
-    name: string;
-    url: string;
-  };
-};
-
-type Type = {
-  slot: number;
-  type: {
-    name: string;
-    url: string;
-  };
-};
-
-type Sprites = {
-  other: {
-    dream_world: {
-      front_default: string;
-    };
-  };
-};
-
-interface Pokemon {
-  name: string;
-  id: number;
-  height: number;
-  weight: number;
-  types: Type[];
-  stats: Stat[];
-  is_default: boolean;
-  sprites: Sprites;
-}
+import { Pokemon } from '../types';
 
 const Pokemon = ({ pokemon }: { pokemon: Pokemon }) => {
   return (

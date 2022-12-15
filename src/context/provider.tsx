@@ -1,46 +1,11 @@
 import React from 'react';
 import Store from './context';
 import PokemonModel from '../models/Pokemon';
+import { Pokemon } from '../types';
 
 type StoreProps = {
   children: React.ReactNode;
 };
-
-type Stat = {
-  base_state: number;
-  effort: number;
-  stat: {
-    name: string;
-    url: string;
-  };
-};
-
-type Type = {
-  slot: number;
-  type: {
-    name: string;
-    url: string;
-  };
-};
-
-type Sprites = {
-  other: {
-    dream_world: {
-      front_default: string;
-    };
-  };
-};
-
-interface Pokemon {
-  name: string;
-  id: number;
-  height: number;
-  weight: number;
-  types: Type[];
-  stats: Stat[];
-  is_default: boolean;
-  sprites: Sprites;
-}
 
 interface TypeEndpoint {
   pokemon: Array<{ pokemon: Pokemon }>;
@@ -49,11 +14,7 @@ interface TypeEndpoint {
 const apiURL = 'https://pokeapi.co/api/v2';
 
 const StoreProvider = ({ children }: StoreProps) => {
-  const [pokemons, setPokemons]: [Pokemon[], React.Dispatch<React.SetStateAction<Pokemon[]>>] = React.useState(() => {
-    const pokemons: Pokemon[] = [];
-
-    return pokemons;
-  });
+  const [pokemons, setPokemons] = React.useState<Pokemon[]>([]);
 
   async function getApiData(query: string, endpoint: 'pokemon' | 'type'): Promise<Pokemon> {
     const APIresponse = await fetch(apiURL + '/' + endpoint + '/' + query);
