@@ -2,9 +2,9 @@ import React from 'react';
 import Store from './context';
 import PokemonModel from '../models/Pokemon';
 
-interface StoreProps {
+type StoreProps = {
   children: React.ReactNode;
-}
+};
 
 type Stat = {
   base_state: number;
@@ -86,7 +86,7 @@ const StoreProvider = ({ children }: StoreProps) => {
 
     const pokemon = await mountPokemonByApiData(query, 'pokemon');
 
-    setPokemons((pokemons) => [...pokemons, pokemon]);
+    setPokemons([pokemon]);
   }
 
   async function getPokemonsByType(type: string) {
@@ -102,7 +102,11 @@ const StoreProvider = ({ children }: StoreProps) => {
     getPokemonsByQuantity();
   }, []);
 
-  return <Store.Provider value={{ pokemons, getPokemonsByQuantity, getPokemonByNameOrId, getPokemonsByType }}>{children}</Store.Provider>;
+  return (
+    <Store.Provider value={{ pokemons, getPokemonsByQuantity, getPokemonByNameOrId, getPokemonsByType }}>
+      {children}
+    </Store.Provider>
+  );
 };
 
 export default StoreProvider;
