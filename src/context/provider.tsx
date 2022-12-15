@@ -14,11 +14,7 @@ interface TypeEndpoint {
 const apiURL = 'https://pokeapi.co/api/v2';
 
 const StoreProvider = ({ children }: StoreProps) => {
-  const [pokemons, setPokemons]: [Pokemon[], React.Dispatch<React.SetStateAction<Pokemon[]>>] = React.useState(() => {
-    const pokemons: Pokemon[] = [];
-
-    return pokemons;
-  });
+  const [pokemons, setPokemons] = React.useState<Pokemon[]>([]);
 
   async function getApiData(query: string, endpoint: 'pokemon' | 'type'): Promise<Pokemon> {
     const APIresponse = await fetch(apiURL + '/' + endpoint + '/' + query);
